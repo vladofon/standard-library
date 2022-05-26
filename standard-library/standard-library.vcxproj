@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="standard-library.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Task1.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
