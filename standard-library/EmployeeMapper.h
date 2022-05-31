@@ -19,15 +19,18 @@ public:
    /* Optional method. You can use only [io_controller::save] */
    static employee* create()
    {
+      int id;
       string name;
       int age;
       int experience;
 
+      cout << "Enter Employee`s id: "; cin >> id;
       cout << "Enter Employee`s name: "; cin >> name;
       cout << "Enter Employee`s age: "; cin >> age;
       cout << "Enter Employee`s experience: "; cin >> experience;
 
       const auto object = new employee();
+      object->set_id(id);
       object->set_name(name);
       object->set_age(age);
       object->set_experience(experience);
@@ -38,7 +41,7 @@ public:
    }
 
    // Mapping data, retrieved from the file, to list of objects
-   List<employee*>* map_all(const string& path = "db.txt") const
+   static List<employee*>* map_all(const string& path = "db.txt")
    {
       const auto data = io_controller::retrieve(path);
       const auto result = new LinkedList<employee*>();
@@ -78,13 +81,14 @@ private:
       return elements;
    }
 
-   employee* map(List<string>* data) const
+   static employee* map(List<string>* data)
    {
       const auto object = new employee();
 
-      object->set_name(data->get(0));
-      object->set_age(stoi(data->get(1)));
-      object->set_experience(stoi(data->get(2)));
+      object->set_id(stoi(data->get(0)));
+      object->set_name(data->get(1));
+      object->set_age(stoi(data->get(2)));
+      object->set_experience(stoi(data->get(3)));
 
       return object;
    }
