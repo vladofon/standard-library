@@ -10,13 +10,14 @@ public:
 
    employee() {
 
+      this->id_ = -1;
       this->name_ = "undefined";
       this->age_ = -1;
       this->experience_ = -1;
    }
 
-   employee(const string& name, const int age, const int experience) {
-
+   employee(const int id, const string& name, const int age, const int experience) {
+      this->id_ = id;
       this->name_ = name;
       this->age_ = age;
       this->experience_ = experience;
@@ -30,6 +31,21 @@ public:
    }
 
    ~employee() {
+   }
+
+   bool operator < (const employee& obj) const
+   {
+      return (id_ < obj.get_id());
+   }
+
+   int get_id() const
+   {
+      return this->id_;
+   }
+
+   void set_id(const int id)
+   {
+      this->id_ = id;
    }
 
    void set_name(const string& name) {
@@ -63,6 +79,7 @@ public:
    {
       string dump =
          "Employee: {\n";
+      dump += "  id: " + std::to_string(this->id_) + ",\n";
       dump += "  name: " + this->name_ + ",\n";
       dump += "  age: " + std::to_string(this->age_) + ",\n";
       dump += "  experience: " + std::to_string(this->experience_) + ",\n";
@@ -73,7 +90,8 @@ public:
 
    string to_string() const
    {
-      string dump = this->name_ + ":";
+      string dump = std::to_string(this->id_) + ":";
+      dump += this->name_ + ":";
       dump += std::to_string(this->age_) + ":";
       dump += std::to_string(this->experience_) + ":";
       dump += "\n";
@@ -83,8 +101,9 @@ public:
 
 private:
 
+   int id_;
    string name_;
-   int age_;
    int experience_;
+   int age_;
 
 };
