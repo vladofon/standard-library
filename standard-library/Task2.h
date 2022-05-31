@@ -5,6 +5,7 @@
 #include <stack>
 
 #include "Employee.h"
+#include "EmployeeMapper.h"
 #include "IOController.h"
 #include "LinkedList.h"
 
@@ -53,15 +54,17 @@ private:
    static void fill(deque<string>* container)
    {
       const auto employees = new LinkedList<string>();
-      employees->add((new employee("first", 1, 1))->to_string());
-      employees->add((new employee("second", 2, 2))->to_string());
-      employees->add((new employee("third", 3, 3))->to_string());
+      employees->add((new employee(1, "first", 1, 1))->to_string());
+      employees->add((new employee(2, "second", 2, 2))->to_string());
+      employees->add((new employee(3, "third", 3, 3))->to_string());
 
       io_controller::save(employees, "db.txt");
 
-      for (int i = 0; i < employees->getSize(); i++)
+      const auto saved = employee_mapper::map_all("db.txt");
+
+      for (int i = 0; i < saved->getSize(); i++)
       {
-         container->push_front(employees->get(i));
+         container->push_front(saved->get(i)->to_formated_string());
       }
    }
 
