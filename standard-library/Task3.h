@@ -11,6 +11,7 @@
 
 
 class task3 {
+public:
    static void start()
    {
       const auto container = new deque<employee*>();
@@ -32,33 +33,18 @@ class task3 {
       review(second_container);
 
       auto third_container = stack_to_deque(second_container);
+      merge(third_container, container);
 
       review(third_container);
 
+      if (find(third_container, 2)->get_id() != -1) {
+         cout << "Element was found in third container!" << endl;
+      }
+      else {
+         cout << "Element with id [2] not found!" << endl;
+      }
 
-
-      container->clear();
-
-      fill(container);
-
-      review(container);
-
-      fill(second_container);
-
-      erase_range(container, 0, 5);
-
-      sort(container->begin(), container->end());
-      sort(second_container);
-
-      merge(
-         container->begin(),
-         container->end(),
-         second_container->begin(),
-         second_container->end(),
-         inserter(*container, container->end())
-      );
-
-      review(container);
+      cout << "Count of elements with [id=2]:" << find_all(third_container, 2) << endl;
    }
 
 private:
@@ -96,6 +82,7 @@ private:
       while (!container->empty())
       {
          cout << "[item] = " << container->top()->to_formated_string() << endl;
+         container->pop();
       }
    }
 
@@ -130,6 +117,18 @@ private:
       return new employee();
    }
 
+   static int find_all(deque<employee*>* container, const int id)
+   {
+      int counter = 0;
+      for (auto item : *container) {
+         if (item->get_id() == id) {
+            counter++;
+         }
+      }
+
+      return counter;
+   }
+
    static deque<employee*>* stack_to_deque(stack<employee*>* container)
    {
       auto result = new deque<employee*>();
@@ -137,8 +136,17 @@ private:
       while (!container->empty())
       {
          result->push_front(container->top());
+         container->pop();
       }
 
       return result;
+   }
+
+   static void merge(deque<employee*>* right, deque<employee*>* left)
+   {
+      for (auto element : *left)
+      {
+         right->push_front(element);
+      }
    }
 };
