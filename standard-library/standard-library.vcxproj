@@ -142,8 +142,18 @@
     <ClCompile Include="standard-library.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Employee.h" />
+    <ClInclude Include="EmployeeMapper.h" />
+    <ClInclude Include="IOController.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Manipulator.h" />
     <ClInclude Include="Task1.h" />
     <ClInclude Include="Task2.h" />
+    <ClInclude Include="Task3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="db.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

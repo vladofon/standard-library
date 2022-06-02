@@ -9,7 +9,6 @@
 #include "IOController.h"
 #include "LinkedList.h"
 
-void find_by_id()
 
 class task3 {
    static void start()
@@ -20,7 +19,23 @@ class task3 {
 
       review(container);
 
-      find(container->begin(), container->end(), ;
+      cout << "Find element by id [id=2]:" << endl;
+      cout << find(container, 2)->to_formated_string() << endl;
+
+      cout << "Copy found elements to new collection:" << endl;
+      auto second_container = new stack<employee*>();
+      second_container->push(find(container, 2));
+
+      sort(container->rbegin(), container->rend());
+
+      review(container);
+      review(second_container);
+
+      auto third_container = stack_to_deque(second_container);
+
+      review(third_container);
+
+
 
       container->clear();
 
@@ -28,14 +43,12 @@ class task3 {
 
       review(container);
 
-      const auto second_container = new deque<string>();
-
       fill(second_container);
 
       erase_range(container, 0, 5);
 
       sort(container->begin(), container->end());
-      sort(second_container->begin(), second_container->end());
+      sort(second_container);
 
       merge(
          container->begin(),
@@ -77,6 +90,15 @@ private:
       }
    }
 
+   static void review(stack<employee*>* container)
+   {
+      cout << "First container:" << endl;
+      while (!container->empty())
+      {
+         cout << "[item] = " << container->top()->to_formated_string() << endl;
+      }
+   }
+
    static void erase_range(deque<string>* container, const int start, const int end)
    {
       auto first_pos = find_pos(container, start);
@@ -99,7 +121,24 @@ private:
       return position;
    }
 
-   static employee* find(deque<employee*>* container, const int id) {
-      for_each(container->begin(), container->end(), )
+   static employee* find(deque<employee*>* container, const int id)
+   {
+      for (auto item : *container) {
+         if (item->get_id() == id) return item;
+      }
+
+      return new employee();
+   }
+
+   static deque<employee*>* stack_to_deque(stack<employee*>* container)
+   {
+      auto result = new deque<employee*>();
+
+      while (!container->empty())
+      {
+         result->push_front(container->top());
+      }
+
+      return result;
    }
 };
